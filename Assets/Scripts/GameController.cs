@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameController : MonoBehaviour 
@@ -10,10 +11,14 @@ public class GameController : MonoBehaviour
     public float startWait;
     public float waveWait;
 
-    public GUIText scoreText;
-    public GUIText restartText;
-    public GUIText gameOverText;
-
+    public GameObject scorePanel;
+    public GameObject restartPanel;
+    public GameObject gameOverPanel;
+    
+    public Text scoreText;
+    public Text restartText;
+    public Text gameOverText;
+    
     private bool gameOver;
     private bool restart;
     private int score;
@@ -23,8 +28,10 @@ public class GameController : MonoBehaviour
     {
         gameOver = false;
         restart = false;
-        restartText.text = "";
-        gameOverText.text = "";
+        //restartText.text = "";
+        //gameOverText.text = "";
+        restartPanel.SetActive(false);
+        gameOverPanel.SetActive(false);
         score = 0;
         UpdateScore();
         StartCoroutine (SpawnWaves());
@@ -57,6 +64,7 @@ public class GameController : MonoBehaviour
 
             if (gameOver)
             {
+                restartPanel.SetActive(true);
                 restartText.text = "Press [Submit] to Restart";
                 restart = true;
                 break;
@@ -77,6 +85,7 @@ public class GameController : MonoBehaviour
 
     public void GameOver()
     {
+        gameOverPanel.SetActive(true);
         gameOverText.text = "Game Over!";
         gameOver = true;
     }
